@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from database.config import DBConnectionHandler
-from entities import products
-from models.post_product import ProductSchema
+from ..entities import products
+from ..models.post_product import ProductSchema
 import datetime
 import uuid
 
@@ -33,7 +33,7 @@ class ProductsRepository():
                 create_product.ativo = True
                 create_product.data_criacao = datetime.datetime.now()
                 create_product.data_modificacao = datetime.datetime.now()
-                create_product.id_produto = uuid.uuid4
+                create_product.id_produto = uuid.uuid4()
                 create_product.nome = produto.nome
                 create_product.preco = produto.preco
                 create_product.preco_atual = produto.preco_atual

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .use_case import GetUserById, CreateUser
+from .use_cases import GetUserById, CreateUser
 from .models.post_user import UserSchema
 
 router = APIRouter(
