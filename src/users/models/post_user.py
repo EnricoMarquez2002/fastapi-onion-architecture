@@ -21,7 +21,6 @@ class UserSchema(BaseModel):
         return value
 
     class Config:
-        orm_mode = True
         schema_extra = {
             "example": {
                 "nome": "Pedro",

@@ -1,5 +1,4 @@
 from sqlalchemy import Column, String, Boolean, Float
-from sqlalchemy.orm import relationship
 from base_app.entities.base import BaseModel
 
 class Products(BaseModel):

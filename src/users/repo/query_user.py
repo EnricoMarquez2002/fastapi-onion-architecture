@@ -14,7 +14,11 @@ class UserRepository:
         with DBConnectionHandler() as db_connection:
 
             try:
-                user = db_connection.session.query(users.Users.nome, users.Users.sobrenome,users.Users.email)\
+                user = db_connection.session.query(
+                    users.Users.nome,
+                    users.Users.sobrenome,
+                    users.Users.email
+                )\
                 .filter(users.Users.id_usuario == user_id)\
                 .all()
                 return user
