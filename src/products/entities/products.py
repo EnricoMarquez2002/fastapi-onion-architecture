@@ -1,15 +1,15 @@
 from sqlalchemy import Column, String, Boolean, Float
 from sqlalchemy.orm import relationship
-from ...base_app.entities.base import BaseModel
-from ...orders.entities.orders import Orders
+from base_app.entities.base import BaseModel
 
 class Products(BaseModel):
 
-    __tablename__ = 'products'
+    __tablename__ = 'produto_produto'
 
-    name = Column(String(100))
-    price = Column(Float(8,2))
-    updated_price = Column(Float(8,2)) 
-    promotion = Column(Boolean, default=False)
+    id_produto = Column(String(100), primary_key=True) 
+    nome = Column(String(100))
+    preco = Column(Float(8,2))
+    preco_atual = Column(Float(8,2)) 
+    promocao = Column(Boolean, default=False)
 
-    order_product = relationship("ProductsOrder", back_populates="product_owner")
+    #order_product = relationship("ProductsOrder", back_populates="product_owner")
