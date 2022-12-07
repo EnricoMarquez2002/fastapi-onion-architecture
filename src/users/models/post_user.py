@@ -1,11 +1,9 @@
-from pydantic import BaseModel, EmailStr, validator
+from .user_base import UserSchema
+from pydantic import validator
 import re
 
 
-class UserSchema(BaseModel):
-    nome: str
-    sobrenome: str
-    email: EmailStr
+class UserSchemaCreate(UserSchema):
     password: str
 
     @validator("password")
@@ -20,14 +18,6 @@ class UserSchema(BaseModel):
             raise ValueError("A senha deve conter pelo menos um carácter especial")
         return value
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "nome": "Pedro",
-                "sobrenome": "Silva",
-                "email": "pedrosilva@gmail.com",
-                "password": "Senha@123"
-            }
-        }
+   
 
     
