@@ -16,15 +16,9 @@ class CreateUser():
 
 class UpdateUser():
     def execute(user_id: str, user: UserSchemaUp):
-        dicionario = {}
-        user = dict(user)
-        for key, value in user.items():
-            if value is None:
-                pass
-            else:
-                dicionario[key] = value
-        dicionario["data_modificacao"] = datetime.datetime.now()
+        user_info = user.dict(exclude_none=True)
+        user_info["data_modificacao"] = datetime.datetime.now()
 
-        user_up = UserRepository.update_user(user_id, dicionario)
+        user_up = UserRepository.update_user(user_id, user_info)
         return user_up
         

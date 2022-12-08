@@ -47,4 +47,22 @@ class ProductsRepository():
 
             return HTTPException(status_code=status.HTTP_201_CREATED, detail="Product created")
 
+    @classmethod
+    def update_product(cls, product_name: str, product: dict):
+        with DBConnectionHandler() as db_connection:
+            try:
+
+                db_connection.session.query(products.Products)\
+                .filter(products.Products.nome == product_name)\
+                .update(product)
+                
+                db_connection.session.commit()
+
+            except:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="The form of data was incorrect, try again")
+            
+            finally:
+                db_connection.session.close()
+            
+            return HTTPException(status_code=status.HTTP_200_OK, detail="Product updated")
             

@@ -8,7 +8,6 @@ from base_app.security.bcrypt import get_password_hash
 from fastapi import HTTPException, status
 
 
-
 class UserRepository:
     """ Class to manage user repo """
     @classmethod
@@ -75,7 +74,10 @@ class UserRepository:
                 filter(users.Users.id_usuario == user_id).\
                 update(user)
                 db_connection.session.commit()
-                
+
+            except:
+                return  HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Verifique as informações enviadas")
+
             finally:
                 db_connection.session.close()
 

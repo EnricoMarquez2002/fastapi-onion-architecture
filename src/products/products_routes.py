@@ -1,6 +1,7 @@
 from fastapi import APIRouter
-from .use_cases import GetAllProducts, PostProduct
+from .use_cases import GetAllProducts, PostProduct, UpdateProduct
 from .models.post_product import ProductSchema
+from .models.update_product import ProductSchemaUp
 
 
 router = APIRouter(
@@ -17,3 +18,8 @@ async def read_products():
 async def create_product(produto: ProductSchema):
     product = PostProduct.execute(produto)
     return product
+
+@router.patch('/{name}')
+async def update_product(product_name: str, product: ProductSchemaUp):
+    product_up = UpdateProduct.execute(product_name, product)
+    return product_up
