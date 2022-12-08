@@ -1,3 +1,4 @@
+from fastapi import HTTPException, status
 from .repo.query_user import UserRepository
 from .models.post_user import UserSchemaCreate
 from .models.update_user import UserSchemaUp
@@ -8,6 +9,11 @@ class GetUserById():
     def execute(user_id: str):
         user = UserRepository.get_user_by_id(user_id)
         return user
+
+class GetAllUsers():
+    def execute():
+        users = UserRepository.get_all_users()
+        return users
 
 class CreateUser():
     def execute(user_schema: UserSchemaCreate):

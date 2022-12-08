@@ -10,7 +10,7 @@ class Orders(BaseModel):
     numero_pedido = Column(String(100), primary_key=True)
     status_pedido = Column(Integer)
     preco_pedido = Column(Float(8,2))
-    fk_UUID_usuario = Column(String(100), ForeignKey("usuario_usuario.id_usuario", ondelete='CASCADE'), nullable=True)  
+    fk_UUID_usuario_id = Column(String(100), ForeignKey("usuario_usuario.id_usuario", ondelete='CASCADE'), nullable=True)  
 
     owner = relationship("Users", back_populates="pedido_pedido", lazy="joined")
     #product_order = relationship("ProductsOrder", back_populates="order_owner")

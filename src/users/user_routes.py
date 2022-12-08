@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .use_cases import GetUserById, CreateUser, UpdateUser
+from .use_cases import GetUserById, CreateUser, UpdateUser, GetAllUsers
 from .models.post_user import UserSchemaCreate
 from .models.update_user import UserSchemaUp
 
@@ -11,9 +11,14 @@ router = APIRouter(
 
 
 @router.get('/{id}')
-async def get_user(user_id: str):
+async def read_user(user_id: str):
     user = GetUserById.execute(user_id)
     return user
+
+@router.get('')
+async def read_all_users():
+    users = GetAllUsers.execute()
+    return users
 
 @router.post('')
 async def create_user(user_schema:UserSchemaCreate):

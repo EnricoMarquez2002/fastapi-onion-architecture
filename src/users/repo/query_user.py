@@ -1,7 +1,6 @@
 from database.config import DBConnectionHandler
 from users.entities import users
 from ..models.post_user import UserSchemaCreate
-from ..models.update_user import UserSchemaUp
 import datetime
 import uuid
 from base_app.security.bcrypt import get_password_hash 
@@ -24,11 +23,14 @@ class UserRepository:
                 .all()
                 return user
 
+            except:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
             finally:
                 db_connection.session.close()
 
     @classmethod
-    def read_all_users(cls):
+    def get_all_users(cls):
         with DBConnectionHandler() as db_connection:
             try:
 
@@ -70,13 +72,16 @@ class UserRepository:
         with DBConnectionHandler() as db_connection:
             try:
 
-                db_connection.session.query(users.Users).\
-                filter(users.Users.id_usuario == user_id).\
-                update(user)
-                db_connection.session.commit()
+                if user_id is None:
+                    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+                else:
+                    db_connection.session.query(users.Users).\
+                    filter(users.Users.id_usuario == user_id).\
+                    update(user)
+                    db_connection.session.commit()
 
             except:
-                return  HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Verifique as informações enviadas")
+                return  HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Verify the data sended")
 
             finally:
                 db_connection.session.close()
