@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .use_cases import GetAllProducts, PostProduct, UpdateProduct
+from .use_cases import GetAllProducts, PostProduct, UpdateProduct, DeleteProduct
 from .models.post_product import ProductSchema
 from .models.update_product import ProductSchemaUp
 
@@ -23,3 +23,9 @@ async def create_product(produto: ProductSchema):
 async def update_product(product_name: str, product: ProductSchemaUp):
     product_up = UpdateProduct.execute(product_name, product)
     return product_up
+
+@router.delete('')
+async def delete_product(product_id: str):
+    product = DeleteProduct.execute(product_id)
+    return product
+

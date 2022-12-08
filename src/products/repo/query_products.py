@@ -65,4 +65,19 @@ class ProductsRepository():
                 db_connection.session.close()
             
             return HTTPException(status_code=status.HTTP_200_OK, detail="Product updated")
+
+    @classmethod
+    def delete_product(cls, product_id):
+        with DBConnectionHandler() as db_connection:
+            try:
+
+                db_connection.session.query(products.Products)\
+                .filter(products.Products.id_produto == product_id)\
+                .delete()
+
+                db_connection.session.commit()
+
+            finally:
+                db_connection.session.close()
             
+            return HTTPException(status_code=status.HTTP_200_OK, detail="Product deleted successfully")

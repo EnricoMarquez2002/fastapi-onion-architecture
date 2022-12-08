@@ -25,5 +25,10 @@ class UpdateProduct():
         product_up = ProductsRepository.update_product(product_name, product_info)
         return product_up
 
+class DeleteProduct():
+
+    def execute(product_id: str):
+        product = ProductsRepository.delete_product(product_id)
+        return product
 
 
